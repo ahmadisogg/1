@@ -104,20 +104,8 @@ jobs:
         run: |
           Write-Host "Installing Cursor AI IDE via winget..."
 
-          # Create a credential object from env vars
-          $secpasswd = ConvertTo-SecureString "${{ env.RDP_PASS }}" -AsPlainText -Force
-          $creds = New-Object System.Management.Automation.PSCredential("${{ env.RDP_USER }}", $secpasswd)
-
-          # Run winget as that user, system-wide, custom install dir
-          Start-Process "winget" -ArgumentList @(
-            "install",
-            "--id", "Anysphere.Cursor",
-            "-e",
-            "--scope", "machine",
-            "--location", "C:\Users\Bullettemporary\AppData\Local\Programs\Cursor",
-            "--accept-package-agreements",
-            "--accept-source-agreements"
-          ) -Credential $creds -Wait -NoNewWindow
+          winget install --id Anysphere.Cursor -e --scope user --accept-source-agreements --accept-package-agreements --location "C:\Users\Bullettemporary\AppData\Local\Programs\Cursor"
+          
 
 
       - name: 🔐 Enable RDP user + firewall
