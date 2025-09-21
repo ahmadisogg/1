@@ -64,9 +64,9 @@ jobs:
           function ToIntOr($v, $def){ if("$v" -match '^\d+$'){[int]$v}else{[int]$def} }
 
           $tailnet = $env:RAW_TAILNET
-          $apiKey  = $env:RAWAPIKEY
-          $authKey = $env:RAWAUTHKEY
-          $pat     = $env:RAWPAT
+          $apiKey  = $env:RAW_APIKEY
+          $authKey = $env:RAW_AUTHKEY
+          $pat     = $env:RAW_PAT
           if (-not $tailnet -or -not $apiKey -or -not $authKey -or -not $pat) {
             Write-Error "Missing required inputs"; exit 1
           }
