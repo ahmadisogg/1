@@ -103,7 +103,12 @@ jobs:
       - name: 💻 Install Cursor AI IDE
         run: |
           Write-Host "Installing Cursor AI IDE via winget..."
-          winget install --id Anysphere.Cursor -e --scope user --accept-source-agreements --accept-package-agreements
+          $user = "${{ env.RDP_USER }}"
+          $plainPassword = "${{ env.RDP_PASS }}"
+          $password = ConvertTo-SecureString $plainPassword -AsPlainText -Force
+          $cred = New-Object System.Management.Automation.PSCredential($user, $password)
+
+          Start-Process winget -ArgumentList 'install --id Anysphere.Cursor -e --scope user --accept-source-agreements --accept-package-agreements' -Credential $cred -Wait
 
       - name: 🔐 Enable RDP user + firewall
         run: |
